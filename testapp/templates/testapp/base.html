@@ -1,0 +1,142 @@
+{% load static tailwind_tags %}
+{% tailwind_css %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Employee Management System{% endblock %}</title>
+    <!-- Add Favicon -->
+    <link rel="icon" href="{% static 'images/favicon.png' %}" type="image/x-icon">
+</head>
+<body class="bg-gray-100 font-semibold flex flex-col min-h-screen">
+    <!-- Header -->
+    <header class="bg-blue-600 text-white py-4 px-4 md:px-8">
+        <div class="container mx-auto flex justify-between items-center">
+            <!-- Logo -->
+            <h1 class="text-xl font-bold"><a href="/">Employee Management System</a></h1>
+            <!-- Navigation Menu -->
+            <nav>
+                <ul class="hidden md:flex space-x-4">
+                    <li>
+                        <a href="{% url 'home' %}" 
+                           class="bg-transparent border border-white text-white px-4 py-2 rounded-full hover:bg-white hover:text-blue-600 transition duration-300 ease-in-out">
+                            Home
+                        </a>
+                    </li>
+                    {% if user.is_authenticated %}
+                        <li>
+                            <a href="{% url 'logout' %}" 
+                               class="bg-white text-blue-600 px-4 py-2 rounded-full hover:bg-gray-100">
+                                Logout
+                            </a>
+                        </li>
+                    {% else %}
+                        <li>
+                            <a href="{% url 'signup' %}" 
+                               class="bg-transparent border border-white text-white px-4 py-2 rounded-full hover:bg-white hover:text-blue-600 transition duration-300 ease-in-out">
+                                Sign Up
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{% url 'manager_login' %}" 
+                               class="bg-transparent border border-white text-white px-4 py-2 rounded-full hover:bg-white hover:text-blue-600 transition duration-300 ease-in-out">
+                                Login
+                            </a>
+                        </li>
+                    {% endif %}
+                </ul>
+                <!-- Hamburger Menu Button (Visible on Mobile) -->
+                <button id="menu-toggle" class="md:hidden text-white focus:outline-none">
+                    ☰
+                </button>
+            </nav>
+            <!-- Dropdown Menu for Mobile -->
+            <div id="mobile-dropdown" class="hidden md:hidden mt-4 bg-white shadow-lg rounded-lg p-4">
+                <ul class="space-y-2">
+                    <li>
+                        <a href="{% url 'home' %}" 
+                           class="block text-blue-600 px-4 py-2 rounded-full hover:bg-gray-100 transition duration-300 ease-in-out">
+                            Home
+                        </a>
+                    </li>
+                    {% if user.is_authenticated %}
+                        <li>
+                            <a href="{% url 'logout' %}" 
+                               class="block text-blue-600 px-4 py-2 rounded-full hover:bg-gray-100 transition duration-300 ease-in-out">
+                                Logout
+                            </a>
+                        </li>
+                    {% else %}
+                        <li>
+                            <a href="{% url 'signup' %}" 
+                               class="block text-blue-600 px-4 py-2 rounded-full hover:bg-gray-100 transition duration-300 ease-in-out">
+                                Sign Up
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{% url 'manager_login' %}" 
+                               class="block text-blue-600 px-4 py-2 rounded-full hover:bg-gray-100 transition duration-300 ease-in-out">
+                                Login
+                            </a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </header>
+    <!-- Main Content -->
+    <main class="flex-1 container mx-auto px-4 py-8">
+        {% block content %}
+        <!-- Default Content -->
+        <p>Welcome to the Employee Management System!</p>
+        {% endblock %}
+    </main>
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-6 mt-auto">
+        <div class="container mx-auto text-center">
+            <!-- Copyright Text -->
+           
+            <a href="#" class="hover:text-gray-300 transition duration-300 ease-in-out">&copy; 2025 Prasanth Yendluru &nbsp;&nbsp;All rights reserved.</a>
+           
+
+            <!-- Footer Links -->
+            <div class="mt-4 space-x-4">
+                <a href="#" class="hover:text-gray-300 transition duration-300 ease-in-out">Privacy Policy</a>
+                <a href="#" class="hover:text-gray-300 transition duration-300 ease-in-out">Terms of Service</a>
+                <a href="#" class="hover:text-gray-300 transition duration-300 ease-in-out">Contact Us</a>
+            </div>
+        </div>
+        <div class="flex justify-center items-center gap-6 p-4">
+            <!-- GitHub -->
+            <a href="https://github.com/prasanth-yendluru" target="_blank">
+                <img src="{% static 'images/github.svg' %}" alt="GitHub Logo" class="w-8 h-8 sm:w-10 sm:h-10">
+            </a>
+            
+            <!-- LinkedIn -->
+            <a href="https://www.linkedin.com/in/prasanth-yendluru/" target="_blank">
+                <img src="{% static 'images/linkedin.svg' %}" alt="LinkedIn Logo" class="w-8 h-8 sm:w-10 sm:h-10">
+            </a>
+            
+            <!-- Instagram -->
+            <a href="https://www.instagram.com/your_instagram" target="_blank">
+                <img src="{% static 'images/insta.svg' %}" alt="Instagram Logo" class="w-8 h-8 sm:w-10 sm:h-10">
+            </a>
+        
+            <!-- Twitter -->
+            <a href="https://twitter.com/your_twitter" target="_blank">
+                <img src="{% static 'images/twitter.svg' %}" alt="Twitter Logo" class="w-8 h-8 sm:w-10 sm:h-10">
+            </a>
+        </div>
+        
+        
+    </footer>
+    <!-- JavaScript for Hamburger Menu -->
+    <script>
+        document.getElementById('menu-toggle').addEventListener('click', function () {
+            const dropdown = document.getElementById('mobile-dropdown');
+            dropdown.classList.toggle('hidden');
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,45 @@
+{% extends 'testapp/base.html' %}
+{% load static tailwind_tags %}
+
+{% block title %}Employee Dashboard - Employee Management System{% endblock %}
+
+{% block content %}
+<div class="bg-gray-100 min-h-screen flex flex-col">
+
+   
+    <!-- Main Content -->
+    <main class="flex-1 container mx-auto px-4 py-8">
+        <section class="space-y-6">
+            <!-- Welcome Message -->
+            <div class="bg-white p-6 rounded-lg shadow-md max-w-md mx-auto">
+                <h2 class="text-2xl font-semibold text-gray-800 text-center">Welcome, {{ request.user.username }}!</h2>
+                <p class="text-gray-600 text-center">Here are your assigned tasks:</p>
+            </div>
+
+            <!-- Task List -->
+            <div class="bg-white p-6 rounded-lg shadow-md max-w-md mx-auto">
+                <h3 class="text-xl font-semibold text-gray-800 mb-4 text-center">Your Tasks</h3>
+                {% if tasks %}
+                    <ul class="space-y-4">
+                        {% for task in tasks %}
+                            <li class="p-4 border rounded bg-gray-50 shadow-sm">
+                                <h4 class="font-bold text-lg">{{ task.title }}</h4>
+                                <p class="text-gray-700">{{ task.description }}</p>
+                                <p><strong>Status:</strong> <span class="text-blue-500">{{ task.get_status_display }}</span></p>
+                                <a href="{% url 'update_task_status' task.id %}" 
+                                   class="inline-block mt-2 px-4 py-2 bg-blue-500 text-white rounded-full hover:bg-blue-600 transition duration-300 ease-in-out transform hover:scale-105">
+                                    Update Status
+                                </a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p class="text-center text-gray-600">No tasks have been assigned yet.</p>
+                {% endif %}
+            </div>
+        </section>
+    </main>
+
+    
+</div>
+{% endblock %}
